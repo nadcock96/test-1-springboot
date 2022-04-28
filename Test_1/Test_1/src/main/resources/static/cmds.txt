@@ -1,0 +1,6 @@
+
+CD .\Test_1\ (Directory)
+
+.\mvnw spring-boot:run (Run spring-boot)
+
+http://localhost:8080/ (Access website)

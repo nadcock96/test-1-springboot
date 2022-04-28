@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test1</title> 
+    <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8" />
+    <script type="text/javascript" src="papaparse.min.js"></script>
+</head>
+
+<style>
+    table{
+	border-collapse: collapse;
+    border-radius: 5px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+th {
+    background: #009578;
+    color: #ffffff;
+    text-align: left;
+}
+
+th, td {
+    padding: 10px 20px;
+}
+
+tr:nth-child(even) {
+    background: #eeeeee;
+}
+
+#btna td input{
+	width: auto;
+}
+</style>
+
+<body>
+<h1>Test1 Nathan Adcock</h1>
+<form class="inputtab" id="inputtab" action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">
+   <table border="4">
+        <thead>
+             <tr>
+                <th>Full Name</th>
+                <td><input type="text" name="fname" id="fname"></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Card Number</th>
+                <td><input type="text" name="cardnum" id="cardnum"></td>
+            </tr>
+            <tr>
+                <th>Expiry Date</th>
+                <td><input type="month" name="expdate" id="expdate"></td>
+            </tr>
+            <tr id="btna">
+                <td colspan="2">
+                    <input type="button" name="button" id="btn" value="Add" onclick="AddRow()">
+                    <br>
+                    <br>
+                    <input type="file" id="fileUpload">
+                    <input type="button" id="upload" value="Upload" onclick="Upload()">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+
+    <table border="3" id="show">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Card Number</th>
+                <th>Expiry Date</th>
+            </tr>
+        </thead>
+    </table>
+
+<script>
+    var list1 = [];
+    var list2 = [];
+    var list3 = [];
+
+    var n = 1;
+    var x = 0;
+
+    function AddRow(){
+
+        var AddRown = document.getElementById('show');
+        var NewRow = AddRown.insertRow(n);
+
+        list1[x] = document.getElementById("fname").value;
+        list2[x] = document.getElementById("cardnum").value;
+        list3[x] = document.getElementById("expdate").value;
+
+        // section for full name validation
+        if (list1[x].length <1) {
+            window.alert("Full Name Required");
+            return;
+        }
+
+        // section for obfuscating card number
+        if (list2[x].length ==16) {
+            list2[x]="xxxx-xxxx-xxxx-" + list2[x].slice(12);
+        }
+        else {
+            window.alert("16 digits required in Card Number");
+            return;
+        }
+
+        //section for expiry date
+        if (list3[x].length <1) {
+            window.alert("Expiry Date Required");
+            return;
+        }
+        else {
+            var year=parseInt(list3[x].slice(0,4));
+            var month=parseInt(list3[x].slice(6));
+            // window.alert("year "+year+" month "+month);
+        }
+
+        //section for csv upload
+        
+        
+        //section for table sorting
+        
+        
+
+        var cel1 = NewRow.insertCell(0);
+        var cel2 = NewRow.insertCell(1);
+        var cel3 = NewRow.insertCell(2);
+
+        cel1.innerHTML = list1[x];
+        cel2.innerHTML = list2[x];
+        cel3.innerHTML = list3[x];
+
+        n++;
+        x++;
+    }
+</script>
+
+</body>
+
+</html>
